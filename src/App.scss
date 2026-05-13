@@ -74,6 +74,10 @@ body{
   outline: none;
 }
 
+.filter-character input::placeholder{
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .filter-house select{
   cursor: pointer;
 }

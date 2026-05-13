@@ -1,7 +1,21 @@
 import "./App.scss";
 import logo from "./images/logo-hp.png"
+import data from "./data/data.json"
+
 
 function App() {
+  const characters = data.map (characterObj => {
+    return {
+    uuid: characterObj.id,
+    fullname: characterObj.name,
+    altname: characterObj.alternate_names,
+    species: characterObj.species,
+    image: characterObj.image
+  }
+  });
+
+  console.log(characters);
+
   return (
     <div className="logo">
       <img
@@ -28,36 +42,19 @@ function App() {
             </select>
           </div>  
           <ul className="cards">
-            <li className="card">
+            {characters.map(characterObj =>  
+            <li key={characterObj.id} className="card">
                <img 
                className="card__img"
-               src="https://hp-api.onrender.com/images/harry.jpg"
-               alt="Harry Potter"
-               title="Foto de Harry Potter"
+               src={characterObj.image}
+               alt={characterObj.altname[0] || characterObj.fullname}
+               title= {
+                "Foto de " + characterObj.fullname 
+                }
                />
-               <h4 className="card__title">Harry Potter</h4>
-               <p className="card_description">Human</p>
-            </li>
-             <li className="card">
-               <img 
-               className="card__img"
-               src="https://ik.imagekit.io/hpapi/hermione.jpeg"
-               alt="Hermione Granger"
-               title="Foto de Hermione Granger"
-               />
-               <h4 className="card__title">Hermione Granger</h4>
-               <p className="card_description">Human</p>
-            </li>
-              <li className="card">
-               <img 
-               className="card__img"
-               src="https://ik.imagekit.io/hpapi/hagrid.png"
-               alt="Rubeus Hagrid"
-               title="Foto de Rubeus Hagrid"
-               />
-               <h4 className="card__title">Rubeus Hagrid</h4>
-               <p className="card_description">Half-giant</p>
-            </li>
+               <h4 className="card__title">{characterObj.fullname}</h4>
+               <p className="card_description">{characterObj.species}</p>
+            </li> )}
           </ul>
          </div>
       </main>
