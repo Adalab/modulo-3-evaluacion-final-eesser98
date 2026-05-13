@@ -1,20 +1,30 @@
 import "./App.scss";
 import logo from "./images/logo-hp.png"
-import data from "./data/data.json"
+import { useState, useEffect } from "react";
 
 
 function App() {
-  const characters = data.map (characterObj => {
-    return {
-    uuid: characterObj.id,
-    fullname: characterObj.name,
-    altname: characterObj.alternate_names,
-    species: characterObj.species,
-    image: characterObj.image
-  }
-  });
 
-  console.log(characters);
+  const [characters, setCharacters] = useState([]);
+
+  useEffect (() => {
+    fetch("https://hp-api.onrender.com/api/characters")
+        .then(res => res.json())
+        .then((data) => {
+          setCharacters(
+            data.map(characterObj => {
+              return {
+                uuid: characterObj.id,
+                fullname: characterObj.name,
+                altname: characterObj.alternate_names,
+                species: characterObj.species,
+                image: characterObj.image
+              };
+            })
+          );
+        });
+  }, [])
+  
 
   return (
     <div className="logo">
