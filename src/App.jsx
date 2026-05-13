@@ -14,7 +14,7 @@ function App() {
           setCharacters(
             data.map(characterObj => {
               return {
-                uuid: characterObj.id,
+                id: characterObj.id,
                 fullname: characterObj.name,
                 altname: characterObj.alternate_names,
                 species: characterObj.species,
@@ -56,7 +56,7 @@ function App() {
             <li key={characterObj.id} className="card">
                <img 
                className="card__img"
-               src={characterObj.image}
+               src={characterObj.image || "https://dummyimage.com/210x295/ffffff/656565.png&text=Harry+Potter"}
                alt={characterObj.altname[0] || characterObj.fullname}
                title= {
                 "Foto de " + characterObj.fullname 
