@@ -14,7 +14,11 @@ const [house, setHouse] = useState("");
    //SECCIÓN USE-EFFECT (lo primero que hace la app al cargar)
   useEffect (() => {
     //fetch("https://hp-api.onrender.com/api/characters")
-    fetch("https://hp-api.onrender.com/api/characters/house/" + house)
+    fetch(
+       house === ""
+      ? "https://hp-api.onrender.com/api/characters"
+      : `https://hp-api.onrender.com/api/characters/house/${house}`
+    )
         .then(res => res.json())
         .then((data) => {
           setCharacters(
@@ -29,7 +33,7 @@ const [house, setHouse] = useState("");
             })
           );
         });
-  }, [house])
+  }, [house]);
   
 // SECCIÓN CON LAS FUNIONES DE EVENTOS
 
