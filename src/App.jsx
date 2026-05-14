@@ -5,10 +5,16 @@ import { useState, useEffect } from "react";
 
 function App() {
 
-  const [characters, setCharacters] = useState([]);
+  //SECCIÓN ESTADO
+const [characters, setCharacters] = useState([]);
 
+const [house, setHouse] = useState("");
+
+
+   //SECCIÓN USE-EFFECT (lo primero que hace la app al cargar)
   useEffect (() => {
-    fetch("https://hp-api.onrender.com/api/characters")
+    //fetch("https://hp-api.onrender.com/api/characters")
+    fetch("https://hp-api.onrender.com/api/characters/house/" + house)
         .then(res => res.json())
         .then((data) => {
           setCharacters(
@@ -23,8 +29,15 @@ function App() {
             })
           );
         });
-  }, [])
+  }, [house])
   
+// SECCIÓN CON LAS FUNIONES DE EVENTOS
+
+const handleInputHouse = (ev) => {
+  setHouse(ev.target.value);
+}
+
+// SECCIÓN FUNCIONES O VARIABLES HELPER (QUE AYUDEN A PINTAR EL HTML)
 
   return (
     <div className="logo">
@@ -44,11 +57,15 @@ function App() {
             </div>
           <div className="filter-house">
             <label>Selecciona la casa:</label>
-            <select>
-              <option>Gryffindor</option>
-              <option>Slytherin</option>
-              <option>Ravenclaw</option>
-              <option>Hufflepuff</option>
+            <select
+              onChange={handleInputHouse}
+              value={house}
+            >
+              <option value= "" >Todas</option>
+              <option value= "gryffindor" >Gryffindor</option>
+              <option value="slytherin">Slytherin</option>
+              <option value="ravenclaw">Ravenclaw</option>
+              <option value="hufflepuff">Hufflepuff</option>
             </select>
           </div>  
           <ul className="cards">
